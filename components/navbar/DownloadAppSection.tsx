@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const DownloadAppSection = () => {
   return (
-    <div className="flex flex-col bg-slate-200 p-4 m-4 rounded-lg border border-gray-300 gap-2">
+    <div className="flex flex-col bg-slate-200 p-4 m-4 mb-10 rounded-lg border border-gray-300 gap-2">
       <div className="flex gap-2 items-center">
         <div className="font-bold text-sm">DOWNLOAD APP</div>
         <div className="text-xs text-green-500">1 Crore+ Downloads</div>
