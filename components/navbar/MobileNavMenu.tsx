@@ -22,8 +22,11 @@ const MobileNavMenu = ({ navItems, isOpen }: MobileNavMenuProps) => {
         <div>
           <Accordion data={navItems} />
         </div>
+        <div>
+        <DownloadAppSection />
+        </div>
       </div>
-      <DownloadAppSection />
+      
     </div>
   );
 };
