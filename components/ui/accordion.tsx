@@ -2,7 +2,7 @@ import { NavItem } from "@/config/nav";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface AccordionItemProps {
   index?: number;
@@ -12,6 +12,8 @@ interface AccordionItemProps {
 
 export const AccordionItem = ({ index, level = 0, data }: AccordionItemProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [height, setHeight] = useState<number | string>("0px");  
+  const ref = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
 
   const toggle = () => {
@@ -21,10 +23,27 @@ export const AccordionItem = ({ index, level = 0, data }: AccordionItemProps) =>
     if (data.url) router.push(data.url);
   };
 
+  useEffect(() => {
+    if (isOpen) setHeight(ref.current!.getBoundingClientRect().height);
+    else setHeight(0);
+  }, [isOpen]);
+
+
+  useEffect(() => {
+    if (!height || !isOpen || !ref.current) return undefined;
+    const resizeObserver = new ResizeObserver((el) => {
+      setHeight(el[0].contentRect.height);
+    });
+    resizeObserver.observe(ref.current);
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [height, isOpen]);
+
   return (
     <div
-      className={`flex flex-col p-2 
-                    data-[level=other]:-translate-x-2 data-[child-first=yes]:mt-2 data-[child=first]:border-t data-[disable-bottom-border-root=yes]:pb-0 
+      className={`flex flex-col
+                    data-[child=first]:border-t
                     w-screen cursor-pointer 
                     ${data.url && level > 1 ? "border-b-0 text-sm" : "border-b"} 
                     ${level % 2 !== 0 ? "bg-slate-200" : "bg-white"} border-slate-300`}
@@ -33,8 +52,9 @@ export const AccordionItem = ({ index, level = 0, data }: AccordionItemProps) =>
       data-child-first={index === 0 && level != 0 ? "yes" : "no"}
       data-disable-bottom-border-root={data.subItems && isOpen ? "yes" : "no"}
     >
-      {/* Parent */}
-      <div className="flex justify-between" onClick={toggle}>
+      {/* Parent title & arrow */}
+      <div className={`flex justify-between p-4`}
+        onClick={toggle}>
         {data.url ? (
           <Link href={data.url}>{data.name}</Link>
         ) : (
@@ -45,18 +65,24 @@ export const AccordionItem = ({ index, level = 0, data }: AccordionItemProps) =>
             <ChevronDown
               className={`h-5 w-5 transition-transform ${
                 isOpen && "rotate-180"
-              }`}
+              }`
+            }
             />
           </div>
         )}
       </div>
       {/* Children */}
-      <div className="transition-all">
-        {isOpen &&
-          data.subItems?.map((item, index) => (
-            <AccordionItem key={index} index={index} level={level + 1} data={item} />
-          ))}
+      <div
+        style={{ height: height, overflow: "hidden", transition: "height 0.2s ease-in-out" }}
+      >
+        <div ref={ref}>
+          {
+            data.subItems?.map((item, index) => (
+              <AccordionItem key={index} index={index} level={level + 1} data={item} />
+            ))
+          }
       </div>
+        </div>
     </div>
   );
 };

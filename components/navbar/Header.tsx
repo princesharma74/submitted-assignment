@@ -9,7 +9,7 @@ type HeaderProps = {
 
 const Header = ({ isOpen, toggleNavBar }: HeaderProps) => {
   return (
-    <div className="fixed top-0 left-0 right-0 flex justify-between items-center h-12 px-4 bg-white shadow-md z-10">
+    <div className="fixed left-0 right-0 flex justify-between items-center h-20 px-4 bg-white shadow-md z-10">
       <div className="flex items-center">
         <Image
           src="https://indcdn.indmoney.com/public/ind-marketing/indmoney-weblogo.png"
