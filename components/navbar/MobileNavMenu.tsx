@@ -1,4 +1,4 @@
-import Accordion from "@/components/ui/accordion";
+import Accordion from "@/components/ui/Accordion";
 import DownloadAppSection from "@/components/navbar/DownloadAppSection";
 import { NavItem } from "@/config/nav";
 

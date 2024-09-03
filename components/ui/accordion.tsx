@@ -2,7 +2,7 @@ import { NavItem } from "@/config/nav";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 
 interface AccordionItemProps {
   index?: number;
