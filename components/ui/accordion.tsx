@@ -27,7 +27,6 @@ export const AccordionItem = ({ level = 0, data }: AccordionItemProps) => {
     else setHeight(0);
   }, [isOpen]);
 
-
   useEffect(() => {
     if (!height || !isOpen || !ref.current) return undefined;
     const resizeObserver = new ResizeObserver((el) => {
@@ -40,7 +39,7 @@ export const AccordionItem = ({ level = 0, data }: AccordionItemProps) => {
   }, [height, isOpen]);
 
   return (
-    <div
+    <li
       className={`flex flex-col
                     w-screen cursor-pointer 
                     ${data.url && level > 1 ? "border-b-0 text-sm" : "border-b"} 
@@ -66,7 +65,7 @@ export const AccordionItem = ({ level = 0, data }: AccordionItemProps) => {
         )}
       </div>
       {/* Children */}
-      <div
+      <ul
         style={{ height: height, overflow: "hidden", transition: "height 0.2s ease-in-out" }}
       >
         <div ref={ref}>
@@ -75,26 +74,24 @@ export const AccordionItem = ({ level = 0, data }: AccordionItemProps) => {
               <AccordionItem key={index} level={level + 1} data={item} />
             ))
           }
-      </div>
         </div>
-    </div>
+      </ul>
+    </li>
   );
 };
-  
 
-  type AccordionProps = {
-    data: NavItem[]
-  }
-  export const Accordion = ({
-    data
-  }: AccordionProps) => {
-    return ( 
-      <div>
-        {data.map((item) => (
-          <AccordionItem key={item.name} data={item} />
-        ))}
-      </div>
-    );
-  }
-  
-  export default Accordion;
+type AccordionProps = {
+  data: NavItem[]
+}
+
+export const Accordion = ({ data }: AccordionProps) => {
+  return ( 
+    <ul>
+      {data.map((item) => (
+        <AccordionItem key={item.name} data={item} />
+      ))}
+    </ul>
+  );
+}
+
+export default Accordion;
