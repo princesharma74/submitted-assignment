@@ -5,12 +5,11 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 interface AccordionItemProps {
-  index?: number;
   level?: number;
   data: NavItem;
 }
 
-export const AccordionItem = ({ index, level = 0, data }: AccordionItemProps) => {
+export const AccordionItem = ({ level = 0, data }: AccordionItemProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [height, setHeight] = useState<number | string>("0px");  
   const ref = useRef<HTMLDivElement | null>(null);
@@ -43,14 +42,9 @@ export const AccordionItem = ({ index, level = 0, data }: AccordionItemProps) =>
   return (
     <div
       className={`flex flex-col
-                    data-[child=first]:border-t
                     w-screen cursor-pointer 
                     ${data.url && level > 1 ? "border-b-0 text-sm" : "border-b"} 
                     ${level % 2 !== 0 ? "bg-slate-200" : "bg-white"} border-slate-300`}
-      data-state={isOpen ? "open" : "closed"}
-      data-level={level === 0 ? "root" : "other"}
-      data-child-first={index === 0 && level != 0 ? "yes" : "no"}
-      data-disable-bottom-border-root={data.subItems && isOpen ? "yes" : "no"}
     >
       {/* Parent title & arrow */}
       <div className={`flex justify-between p-4`}
@@ -78,7 +72,7 @@ export const AccordionItem = ({ index, level = 0, data }: AccordionItemProps) =>
         <div ref={ref}>
           {
             data.subItems?.map((item, index) => (
-              <AccordionItem key={index} index={index} level={level + 1} data={item} />
+              <AccordionItem key={index} level={level + 1} data={item} />
             ))
           }
       </div>
@@ -96,8 +90,8 @@ export const AccordionItem = ({ index, level = 0, data }: AccordionItemProps) =>
   }: AccordionProps) => {
     return ( 
       <div>
-        {data.map((item, index) => (
-          <AccordionItem key={item.name} index={index} data={item} />
+        {data.map((item) => (
+          <AccordionItem key={item.name} data={item} />
         ))}
       </div>
     );
