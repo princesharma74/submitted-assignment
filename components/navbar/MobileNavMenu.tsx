@@ -1,5 +1,5 @@
-import Accordion from "../ui/accordion";
-import DownloadAppSection from "./download_app_section";
+import Accordion from "@/components/ui/Accordion"
+import DownloadAppSection from "@/components/navbar/DownloadAppSection";
 import { NavItem } from "@/config/nav";
 
 type MobileNavMenuProps = {
