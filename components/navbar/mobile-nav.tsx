@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { NavItem } from "@/config/nav";
-import Header from "./header";
+import Header from "./menu-header";
 import MobileNavMenu from "./mobile-nav-menu";
 
 type MobileNavProps = {
