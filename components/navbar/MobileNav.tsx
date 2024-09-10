@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { NavItem } from "@/config/nav";
-import Header from "@/components/navbar/MenuHeader";
-import MobileNavMenu from "@/components/navbar/MobileNavMenu";
+import Header from "@/components/navbar/menu-header";
+import MobileNavMenu from "@/components/navbar/mobile-nav-menu";
 
 type MobileNavProps = {
   navItems: NavItem[];
