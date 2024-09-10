@@ -1,4 +1,4 @@
-import { MobileNav } from "@/components/navbar/MobileNav";
+import { MobileNav } from "@/components/navbar/mobile-nav";
 import { navItems } from "@/config/nav";
 
 export default function Home() {
